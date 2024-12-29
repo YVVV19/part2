@@ -44,9 +44,12 @@ class User(BaseModel):
     
     @validator('password')
     def password(cls, v):
-        for x in symbol:
-            if x not in v:
-                return ValueError("Password must include one special symbol")
+        if len(v)>8:
+            for x in symbol:
+                if x not in v:
+                    return ValueError("Password must include one special symbol")
+        elif len(v)<8:
+            return ValueError("Password must have 8 symbols")
         return v
     
     @validator('phone')
